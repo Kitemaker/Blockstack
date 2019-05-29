@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import { UserSession } from 'blockstack'
-//import EditMe from './EditMe'
-//import Kingdom from './Kingdom'
-import NavBar from './NavBar'
-//import OptionsList from './OptionsList'
-//import OtherKingdoms from './OtherKingdoms'
-import { appConfig, ME_FILENAME } from './constants'
-import './SignedIn.css'
-var Request = require('request');
 import InputComp from  './InputComp';
 import OutComp from './OutComp';
-import ScoreCard from './ScoreCard'
+import ScoreCard from './ScoreCard';
+import { appConfig, ME_FILENAME } from './constants';
+import './SignedIn.css';
+import NavBar from './NavBar';
+//import EditMe from './EditMe'
+//import Kingdom from './Kingdom'
+//import OptionsList from './OptionsList'
+//import OtherKingdoms from './OtherKingdoms'
 
+
+const url = "https://nvxhqhbiwh.execute-api.us-east-1.amazonaws.com/test/blockstack-sentio-api-handler-python?inputText=";
+var request = require('request');
 
 class SignedIn extends Component {
 
