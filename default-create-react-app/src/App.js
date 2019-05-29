@@ -62,6 +62,35 @@ console.log(document.getElementById('inputbox').nodeValue);
    
 }
 
+dropHandler(ev) {
+  console.log('File(s) dropped');
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+
+  if (ev.dataTransfer.items) {
+    // Use DataTransferItemList interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+      // If dropped items aren't files, reject them
+      if (ev.dataTransfer.items[i].kind === 'file') {
+        var file = ev.dataTransfer.items[i].getAsFile();
+        console.log('... file[' + i + '].name = ' + file.name);
+      }
+    }
+  } else {
+    // Use DataTransfer interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+      console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
+    }
+  }
+}
+ dragOverHandler(ev) {
+  console.log('File(s) in drop zone'); 
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+}
+
 render() {
   return (
     <div className="App"> 
@@ -73,21 +102,25 @@ render() {
           <div class="w3-col s6 w3-center">
           
             <h3>Upload Text File</h3>
-            <input class="w3-input" type="file" id="myFile" multiple false onchange={this.onUploadFIle}></input>
+            <input class="w3-input" type="file" id="myFile" multiple false onChange={this.onUploadFIle}></input>
+           
+            <div id="drop_zone"   ondrop ="dropHandler(event)" ondragover="event.stopPropagation(); event.preventDefault();">
+              <p>Drag one or more files to this Drop Zone ...</p>
+            </div>
          
           </div>
 
         </div>
         <div class="w3-row" style={{ width: '80%', align:'center'}}>
-           <button  class="w3-btn w3-block w3-teal" style={{  background:'grey', margin: '20px', align:'center'}} onClick={this.swithStateHandler}>Click Me</button>
+           <button  class="w3-btn w3-block w3-teal" style={{  background:'grey', margin: '20px', align:'center'}} onClick={this.swithStateHandler}>Submit</button>
         </div>
         <div id="sentiment" align="center"><p>Sentiment</p>
        <div class="w3-row" style={{ width: '80%'}}>
       <OutComp output={this.state.sentiment}/>  
        </div>
        <div class="w3-row" style={{ width: '80%'}}>
-          <div class="w3-col s6 w3-center " >
-          <ScoreCard section= "Positive" section_score = {this.state.positive} />
+          <div class="w3-col s6 w3-center "  >
+          <ScoreCard section= "Positive" section_score = {this.state.positive}  style={{padding: '20px'}}/>
           </div>
           <div class="w3-col s6 w3-center " >
             <ScoreCard section= "Negative" section_score = {this.state.negative}/>
