@@ -28,7 +28,11 @@ class App extends Component {
   render() {
     return (
       <main role="main">
-          {this.userSession.isUserSignedIn() ?  <SignedIn /> : <Landing /> }
+          {this.userSession.isUserSignedIn() ?
+            <SignedIn />
+          :
+            <Landing />
+          }
       </main>
     );
   }
