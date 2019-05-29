@@ -168,8 +168,7 @@ render() {
           <div className="w3-col s6 w3-center " >
             <ScoreCard section= "Neutral" section_score = {this.state.neutral}/>
           </div>
-       </div>
-        
+       </div>      
         
        
        </div>
