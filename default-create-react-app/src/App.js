@@ -65,14 +65,46 @@ console.log(document.getElementById('inputbox').nodeValue);
 render() {
   return (
     <div className="App"> 
-      <button onClick={this.swithStateHandler}>Click Me</button>
-       <InputComp input={this.state.input} change={this.onInputChange}/>  
-       <div id="sentiment" align="center"><p>Sentiment</p>  
-        <OutComp output={this.state.sentiment}/>  
-        <ScoreCard section= "Positive" section_score = {this.state.positive}/>
-        <ScoreCard section= "Negative" section_score = {this.state.negative}/>
-        <ScoreCard section= "Mixed" section_score = {this.state.mixed}/>
-        <ScoreCard section= "Neutral" section_score = {this.state.neutral}/>      
+        <p align="left"><h2>Analyse Sentiments of Text</h2></p>
+        <div class="w3-row">
+          <div class="w3-col s6 w3-center " >
+            <InputComp input={this.state.input} change={this.onInputChange}/>
+          </div>
+          <div class="w3-col s6 w3-center">
+          
+            <h3>Upload Text File</h3>
+            <input class="w3-input" type="file" id="myFile" multiple false onchange={this.onUploadFIle}></input>
+         
+          </div>
+
+        </div>
+        <div class="w3-row" style={{ width: '80%', align:'center'}}>
+           <button  class="w3-btn w3-block w3-teal" style={{  background:'grey', margin: '20px', align:'center'}} onClick={this.swithStateHandler}>Click Me</button>
+        </div>
+        <div id="sentiment" align="center"><p>Sentiment</p>
+       <div class="w3-row" style={{ width: '80%'}}>
+      <OutComp output={this.state.sentiment}/>  
+       </div>
+       <div class="w3-row" style={{ width: '80%'}}>
+          <div class="w3-col s6 w3-center " >
+          <ScoreCard section= "Positive" section_score = {this.state.positive} />
+          </div>
+          <div class="w3-col s6 w3-center " >
+            <ScoreCard section= "Negative" section_score = {this.state.negative}/>
+          </div>
+       </div>
+
+       <div class="w3-row" style={{ width: '80%'}}>
+          <div class="w3-col s6 w3-center " >
+          <ScoreCard section= "Mixed" section_score = {this.state.mixed}/>
+          </div>
+          <div class="w3-col s6 w3-center " >
+            <ScoreCard section= "Neutral" section_score = {this.state.neutral}/>
+          </div>
+       </div>
+        
+        
+       
        </div>
     </div>
   );
