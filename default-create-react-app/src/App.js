@@ -6,11 +6,14 @@ import ScoreCard from './ScoreCard'
 
 var request = require('request');
 const url = "https://nvxhqhbiwh.execute-api.us-east-1.amazonaws.com/test/blockstack-sentio-api-handler-python?inputText=";
+
+
+
 class App extends Component{
 
 state = {
 output:"Default Text",
-input:"Please Input Text",
+text:"",
 sentiment: "",
 positive : "",
 negative: "",
@@ -62,6 +65,37 @@ console.log(document.getElementById('inputbox').nodeValue);
    
 }
 
+getFile = (event) => {
+	const input = event.target
+  if ('files' in input && input.files.length > 0) {
+	  this.placeFileContent(
+      document.getElementById('content-target'),
+      input.files[0])
+  }
+}
+
+placeFileContent = (target, file) =>{
+	this.readFileContent(file).then(content => {
+    console.log(content);
+    this.setState({
+      // output:this.state.output,
+       text:content
+     });
+    
+  }).catch(error => console.log(error))
+}
+
+readFileContent = (file) => {
+	const reader = new FileReader()
+  return new Promise((resolve, reject) => {
+    reader.onload = event => resolve(event.target.result)
+    reader.onerror = error => reject(error)
+    reader.readAsText(file)
+  })
+}
+
+
+
 dropHandler(ev) {
   console.log('File(s) dropped');
 
@@ -94,44 +128,44 @@ dropHandler(ev) {
 render() {
   return (
     <div className="App"> 
-        <p align="left"><h2>Analyse Sentiments of Text</h2></p>
-        <div class="w3-row">
-          <div class="w3-col s6 w3-center " >
-            <InputComp input={this.state.input} change={this.onInputChange}/>
+        <h2>Analyse Sentiments of Text</h2>
+        <div className="w3-row">
+          <div className="w3-col s6 w3-center " >
+            <InputComp input={this.state.input} change={this.onInputChange} id='content-target' text={this.state.text}/>
           </div>
-          <div class="w3-col s6 w3-center">
+          <div className="w3-col s6 w3-center">
           
             <h3>Upload Text File</h3>
-            <input class="w3-input" type="file" id="myFile" multiple false onChange={this.onUploadFIle}></input>
+            <input type="file" id="input-file" onChange={this.getFile}/>
            
-            <div id="drop_zone"   ondrop ="dropHandler(event)" ondragover="event.stopPropagation(); event.preventDefault();">
+            <div id="drop_zone"   onDrop ={this.dropHandler} onDragOver={this.dragOverHandler}>
               <p>Drag one or more files to this Drop Zone ...</p>
             </div>
          
           </div>
 
         </div>
-        <div class="w3-row" style={{ width: '80%', align:'center'}}>
-           <button  class="w3-btn w3-block w3-teal" style={{  background:'grey', margin: '20px', align:'center'}} onClick={this.swithStateHandler}>Submit</button>
+        <div className="w3-row" style={{ width: '80%', align:'center'}}>
+           <button  className="w3-btn w3-block w3-teal" style={{  background:'grey', margin: '20px', align:'center'}} onClick={this.swithStateHandler}>Submit</button>
         </div>
         <div id="sentiment" align="center"><p>Sentiment</p>
-       <div class="w3-row" style={{ width: '80%'}}>
+       <div className="w3-row" style={{ width: '80%'}}>
       <OutComp output={this.state.sentiment}/>  
        </div>
-       <div class="w3-row" style={{ width: '80%'}}>
-          <div class="w3-col s6 w3-center "  >
+       <div className="w3-row" style={{ width: '80%'}}>
+          <div className="w3-col s6 w3-center "  >
           <ScoreCard section= "Positive" section_score = {this.state.positive}  style={{padding: '20px'}}/>
           </div>
-          <div class="w3-col s6 w3-center " >
+          <div className="w3-col s6 w3-center " >
             <ScoreCard section= "Negative" section_score = {this.state.negative}/>
           </div>
        </div>
 
-       <div class="w3-row" style={{ width: '80%'}}>
-          <div class="w3-col s6 w3-center " >
+       <div className="w3-row" style={{ width: '80%'}}>
+          <div className="w3-col s6 w3-center " >
           <ScoreCard section= "Mixed" section_score = {this.state.mixed}/>
           </div>
-          <div class="w3-col s6 w3-center " >
+          <div className="w3-col s6 w3-center " >
             <ScoreCard section= "Neutral" section_score = {this.state.neutral}/>
           </div>
        </div>
@@ -143,5 +177,8 @@ render() {
   );
 }
 }
+
+
+
 
 export default App;
