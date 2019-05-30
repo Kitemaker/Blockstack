@@ -8,11 +8,11 @@ class NavBar extends Component {
     const username = this.props.username
     return (    
       <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <Link className="navbar-brand" to="/">Sentio</Link>
+        <Link className="navbar-brand" to="/">Sentify</Link>
 
         <div className="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" to={`/kingdom/${username}`}>Your Kingdom</Link>
             </li>
             <li className="nav-item">
@@ -23,7 +23,7 @@ class NavBar extends Component {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/others">Other Kingdoms</Link>
-            </li>
+            </li> */}
           </ul>
         </div>
         <ul className="navbar-nav mr-auto">

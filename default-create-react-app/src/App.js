@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import InputComp from  './InputComp';
-import OutComp from './OutComp';
 import ScoreCard from './ScoreCard'
 
 var request = require('request');
@@ -128,50 +127,54 @@ dropHandler(ev) {
 render() {
   return (
     <div className="App"> 
-        <h2>Analyse Sentiments of Text</h2>
-        <div className="w3-row">
-          <div className="w3-col s6 w3-center " >
-            <InputComp input={this.state.input} change={this.onInputChange} id='content-target' text={this.state.text}/>
+       
+      <div className="w3-col" >
+          <h2>Analyse Sentiments of Text</h2>       
+          <div className="w3-row">
+            <div className="w3-col w3-center " >
+              <InputComp input={this.state.input} change={this.onInputChange} id='content-target' text={this.state.text}/>
+            </div>
           </div>
-          <div className="w3-col s6 w3-center">
+          <div className="w3-row">
+            <div className="w3-col w3-center "  style={{padding: '20px'}}>
+              <h3>Upload Text File</h3>
+                <input type="file" id="input-file" onChange={this.getFile}/>  
+            </div>      
+          </div>   
+       
+          <div className="w3-row" style={{padding: '20px', paddingLeft:"10%", paddingRight:"10%", margin:"10px"}}>
+              <div className="w3-col w3-center " >
+                <button  className="w3-btn w3-block w3-teal" style={{  background:'grey', align:'center'}} onClick={this.swithStateHandler}>Submit</button>
+            </div>
+          </div>    
           
-            <h3>Upload Text File</h3>
-            <input type="file" id="input-file" onChange={this.getFile}/>
-           
-            <div id="drop_zone"   onDrop ={this.dropHandler} onDragOver={this.dragOverHandler}>
-              <p>Drag one or more files to this Drop Zone ...</p>
+          
+         <div className="w3-row" style={{ paddingLeft:"10%", paddingRight:"10%"}}>
+              <div className="w3-col w3-center "  >
+                <ScoreCard section= "Text Sentiments" section_score = {this.state.sentiment} />
+              </div>
+          </div>     
+         <div className="w3-row w3-center" style={{  padding:"10%"}}>
+            <div className="w3-col w3-center"  style={{  width:"25%"}}>
+            <ScoreCard section= "Positive" section_score = {this.state.positive} />
+            </div>
+            <div className="w3-col w3-center"  style={{  width:"25%"}}> 
+              <ScoreCard section= "Negative" section_score = {this.state.negative}/>
+            </div>       
+  
+      
+            <div className="w3-col w3-center"  style={{  width:"25%"}}>
+            <ScoreCard section= "Mixed" section_score = {this.state.mixed}/>
+            </div>
+            <div className="w3-col w3-center"  style={{  width:"25%"}}>
+              <ScoreCard section= "Neutral" section_score = {this.state.neutral}/>
+            </div>
+     
             </div>
          
-          </div>
-
-        </div>
-        <div className="w3-row" style={{ width: '80%', align:'center'}}>
-           <button  className="w3-btn w3-block w3-teal" style={{  background:'grey', margin: '20px', align:'center'}} onClick={this.swithStateHandler}>Submit</button>
-        </div>
-        <div id="sentiment" align="center"><p>Sentiment</p>
-       <div className="w3-row" style={{ width: '80%'}}>
-      <OutComp output={this.state.sentiment}/>  
-       </div>
-       <div className="w3-row" style={{ width: '80%'}}>
-          <div className="w3-col s6 w3-center "  >
-          <ScoreCard section= "Positive" section_score = {this.state.positive}  style={{padding: '20px'}}/>
-          </div>
-          <div className="w3-col s6 w3-center " >
-            <ScoreCard section= "Negative" section_score = {this.state.negative}/>
-          </div>
-       </div>
-
-       <div className="w3-row" style={{ width: '80%'}}>
-          <div className="w3-col s6 w3-center " >
-          <ScoreCard section= "Mixed" section_score = {this.state.mixed}/>
-          </div>
-          <div className="w3-col s6 w3-center " >
-            <ScoreCard section= "Neutral" section_score = {this.state.neutral}/>
-          </div>
-       </div>      
-        
-       
-       </div>
+         </div>
+   
+     
     </div>
   );
 }

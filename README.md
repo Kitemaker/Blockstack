@@ -1,2 +1,2 @@
 # Blockstack
-Blockstack distributed application
+Sentify 

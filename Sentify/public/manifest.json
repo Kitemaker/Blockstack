@@ -1,9 +1,9 @@
 {
-  "short_name": "Animal Kingdom",
-  "name": "Animal Kingdom",
+  "short_name": "Sentify",
+  "name": "Sentify",
   "icons": [
     {
-      "src": "https://helloblockstack.com/icon-192x192.png",
+      "src": "sentify_launcher.png",
       "sizes": "192x192",
       "type": "image/png"
     }
